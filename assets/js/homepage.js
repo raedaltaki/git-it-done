@@ -1,3 +1,6 @@
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
+
 var getUserRepos = function(user) 
 {
     var apiUrl = "https://api.github.com/users/" + user + "/repos";
@@ -9,5 +12,24 @@ var getUserRepos = function(user)
         });
     });
 };
-  
-getUserRepos("raedaltaki");
+
+var formSubmitHandler = function(event) 
+{
+    event.preventDefault();
+    //console.log(event);
+    // get value from input element
+    var username = nameInputEl.value.trim();
+
+    if (username) 
+    {
+        getUserRepos(username);
+        nameInputEl.value = "";
+    } 
+    else 
+    {
+        alert("Please enter a GitHub username");
+    }
+};
+
+
+userFormEl.addEventListener("submit", formSubmitHandler); 
